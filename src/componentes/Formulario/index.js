@@ -4,61 +4,55 @@ import CampoTexto from '../CampoTexto'
 import ListaSuspensa from '../ListaSuspensa'
 import './Formulario.css'
 
-const Formulario = (props) => {
+const Formulario = ({aoCadastrar, times}) => {
 
     const [nome, setNome] = useState('')
     const [cargo, setCargo] = useState('')
     const [imagem, setImagem] = useState('')
     const [time, setTime] = useState('')
 
-    const aoSalvar = (evento) => {
+    const aoSubmeter = (evento) => {
         evento.preventDefault()
-        props.aoColaboradorCadastrado({
+        console.log('form enviado', nome, cargo, imagem, time )
+        aoCadastrar({
             nome,
             cargo,
             imagem,
             time
         })
-        setNome('')
-        setCargo('')
-        setImagem('')
-        setTime('')
     }
-
+    
     return (
-        <section className="formulario">
-            <form onSubmit={aoSalvar}>
+        <section className="formulario-container">
+            <form className:"formulario" onSubmit={aoSubmeter}>
                 <h2>Preencha os dados para criar o card de jogador</h2>
-                <CampoTexto 
+                <CampoTexto
                     obrigatorio={true}
-                    label="Nome do jogador"
-                    placeholder="Digite seu nome" 
+                    label='Nome do jogador'
+                    placeholder='Digite seu nome'
                     valor={nome}
                     aoAlterado={valor => setNome(valor)}
                 />
                 <CampoTexto
                     obrigatorio={true}
-                    label="Função"
-                    placeholder="Digite sua função" 
+                    label='Função'
+                    placeholder='Digite sua função'
                     valor={cargo}
                     aoAlterado={valor => setCargo(valor)}
                 />
                 <CampoTexto
-                    label="foto"
+                    label="Foto"
                     placeholder="Digite o endereço da foto do jogador" 
-                    valor={imagem}
                     aoAlterado={valor => setImagem(valor)}
                 />
                 <ListaSuspensa
                     obrigatorio={true}
                     label="Game" 
-                    itens={props.times}
+                    itens={times}
                     valor={time}
                     aoAlterado={valor => setTime(valor)}
                 />
-                <Botao>
-                    Criar Card
-                </Botao>
+                <Botao texto='Criar card' />
             </form>
         </section>
     )

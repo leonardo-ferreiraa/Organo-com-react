@@ -7,64 +7,81 @@ import Rodape from './componentes/Rodape';
 
 function App() {
 
-  const times = [
+  const [times, setTimes] = useState([
     {
       nome: 'League of legends',
-      corPrimaria: '#57C278',
-      corSecundaria: '#D9F7E9'
+      cor: '#82CFFA'
     },
     {
       nome: 'Valorant',
-      corPrimaria: '#82CFFA',
-      corSecundaria: '#E8F8FF'
+      cor: '#E06B69'
     },
     {
       nome: 'Counter-Strike: Global Offensive',
-      corPrimaria: '#A6D157',
-      corSecundaria: '#F0F8E2'
+      cor: '#FFBA05'
     },
     {
       nome: 'Dota 2',
-      corPrimaria: '#E06B69',
-      corSecundaria: '#FDE7E8'
+      cor: '#E06B69'
     },
-    /* {
-       nome: 'UX e Design',
-       corPrimaria: '#DB6EBF',
-       corSecundaria: '#FAE9F5'
-     },
-     {
-       nome: 'Mobile',
-       corPrimaria: '#FFBA05',
-       corSecundaria: '#FFF5D9'
-     },
-     {
-       nome: 'Inovação e Gestão',
-       corPrimaria: '#FF8A29',
-       corSecundaria: '#FFEEDF'
-     }
-    */
+ ]);
+const inicial = [
+    {
+      nome: 'Leonardo Ferreira da Silva Vieira',
+      cargo: 'Top Laner',
+      imagem: 'https://github.com/leonardo-ferreiraa.png',
+      time: times[0].nome
+    },
+  {
+      nome: 'Leonardo Ferreira da Silva Vieira',
+      cargo: 'Batedor',
+      imagem: 'https://github.com/leonardo-ferreiraa.png',
+      time: times[1].nome
+    },
+  {
+      nome: 'Leonardo Ferreira da Silva Vieira',
+      cargo: 'Sniper',
+      imagem: 'https://github.com/leonardo-ferreiraa.png',
+      time: times[2].nome
+    },
+  {
+      nome: 'JULIANA AMOASEI',
+      cargo: 'Top Laner',
+      imagem: 'https://github.com/leonardo-ferreiraa.png',
+      time: times[3].nome
+    },
   ]
 
-  const [colaboradores, setColaboradores] = useState([])
+  
+  const [colaboradores, setColaboradores] = useState(inicial)
 
-  const aoNovoColaboradorAdicionado = (colaborador) => {
-    debugger
-    setColaboradores([...colaboradores, colaborador])
+  function deletarColaborador() {
+    console.log('deletando colaborador');
+  }
+
+  function mudarCor(cor, nome) {
+    setTimes(times.map(time => {
+      if(time.nome === nome) {
+        time.cor = cor;
+      }
+      return time;
+    }));
   }
 
   return (
-    <div className="App">
+    <div>
       <Banner />
-      <Formulario times={times.map(time => time.nome)} aoColaboradorCadastrado={colaborador => aoNovoColaboradorAdicionado(colaborador)}/>
-      {times.map(time => <Time 
-        key={time.nome} 
-        nome={time.nome} 
-        corPrimaria={time.corPrimaria} 
-        corSecundaria={time.corSecundaria} 
-        colaboradores={colaboradores.filter(colaborador => colaborador.time === time.nome)}
-      />)}   
-    <Rodape/>
+      <Formulario times={times.map(time => time.nome)} aoCadastrar={colaborador => setColaboradores([...colaboradores, colaborador])} />
+      <section className="times">
+        <h1>Minha organização</h1>
+        {times.map((time, indice) => <Time 
+          mudarCor={mudarCor} 
+          key={indice} 
+          time={time} 
+          colaboradores={colaboradores.filter(colaborador => colaborador.time === time.nome)} aoDeletar={deletarColaborador} />
+          )}
+      </section>  
+    <Rodape />
     </div>
   );
 }

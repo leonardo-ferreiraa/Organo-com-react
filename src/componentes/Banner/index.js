@@ -1,8 +1,8 @@
 import "./Banner.css";
 
-const Banner = (props) => {
-    return (<header className="banner">
-    <img src="/imagens/banner.png" alt="O banner principal da página do Organo"/>
+const Banner = () => {
+    return (<header className="cabecalho">
+    <img src="/imagens/banner.png" alt="Logo do Organo"/>
 </header>)
 }
 
